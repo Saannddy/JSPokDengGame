@@ -18,7 +18,7 @@ test("playRound CLI test", done => {
     });
 
     game.on("close", () => {
-        expect(output).toMatch(/You got/);
+        expect(output).toMatch(/You got total [-+]?\d+ chips/);
         done();
     });
 });
@@ -44,6 +44,8 @@ test("play 2 rounds CLI test", done => {
     });
     game.on("close", () => {
         const occurrences = (output.match(/You got/g) || []).length;
+        const ttlchip = (output.match(/You got total [-+]?\d+ chips/) || []).length;
+        expect(ttlchip).toBe(1);
         expect(occurrences).toBe(2);
         done();
     });
